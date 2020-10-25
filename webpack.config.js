@@ -2,36 +2,39 @@ var path = require('path');
 
 module.exports = {
 
-    optimization: {
-        splitChunks: {
-
-        }
-    },
-
     context: path.resolve('js'),
-    entry: {
-        about: './about_page.js',
-        home: './home_page.js',
-        contact: './contact_page.js'
-    },
+    entry: ['./app'],
     output: {
         path: path.resolve('build/js/'),
         publicPath: '/public/assets/js/',
-        filename: "[name].js"
+        filename: 'bundle.js'
     },
 
     devServer: {
         contentBase: 'public'
     },
 
-    watch: true,
-    mode: "development",
     module: {
         rules: [
-            // { test: /\.js$/, use: "jshint-loader" }
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    // [style-loader](/loaders/style-loader)
+                    { loader: 'style-loader' },
+                    // [css-loader](/loaders/css-loader)
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true
+                        }
+                    }
+                ]
+            }
         ]
     },
+
     resolve: {
-        extensions: [".js", ".es6"]
+        extensions: ['.js', '.es6']
     }
 }
