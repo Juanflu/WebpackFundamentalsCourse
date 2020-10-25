@@ -5,8 +5,8 @@ module.exports = {
     context: path.resolve('js'),
     entry: ['./app'],
     output: {
-        path: path.resolve('build/js/'),
-        publicPath: '/public/assets/js/',
+        path: path.resolve('build/'),
+        publicPath: '/public/assets/',
         filename: 'bundle.js'
     },
 
@@ -18,17 +18,15 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
                 use: [
-                    // [style-loader](/loaders/style-loader)
                     { loader: 'style-loader' },
-                    // [css-loader](/loaders/css-loader)
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true
-                        }
-                    }
+                    { loader: 'css-loader' }
+                ]
+            },
+            {
+                test: /\.(png|jpg)$/,
+                use: [
+                    { loader: 'url-loader?limit=100000' }
                 ]
             }
         ]
